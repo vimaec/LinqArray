@@ -5,7 +5,6 @@
 // LinqArray.cs
 // A library for working with pure functional arrays, using LINQ style extension functions. 
 // Based on code that originally appeared in https://www.codeproject.com/Articles/140138/Immutable-Array-for-NET
-// 
 
 using System;
 using System.Collections.Generic;
@@ -60,39 +59,40 @@ namespace Ara3D
         public static IArray<T> Select<T>(this int count, Func<int, T> f)
         {
             return new FunctionalArray<T>(count, f);
-        }        
+        }
 
+        /// <summary>
+        /// Creates an IArray from any object implement IList, which includes System.List and System.Array.
+        /// </summary>
         public static IArray<T> ToIArray<T>(this IList<T> self)
         {
             return Select(self.Count, i => self[i]);
         }
 
+        /// <summary>
+        /// Creates an IArray from any object implementing IEnumerable
+        /// </summary>
         public static IArray<T> ToIArray<T>(this IEnumerable<T> self)
         {
             return self.ToList().ToIArray();
         }
 
-      
+        /// <summary>
+        /// Creates an IArray by repeating the given item a number of times.
+        /// </summary>
         public static IArray<T> Repeat<T>(this T self, int count)
         {
             return Select(count, i => self);
         }
 
-        public static IArray<T> Unit<T>(this T self)
+        /// <summary>
+        /// Creates an IArray of integers from zero up to one less than the given number.
+        /// </summary>
+        public static IArray<int> Range(this int self)
         {
-            return self.Repeat(1);
+            return Select(self, i => i);
         }
-
-        public static IArray<T> Nil<T>(this T self)
-        {
-            return self.Repeat(0);
-        }
-
-        public static IArray<int> Range(this int n)
-        {
-            return Select(n, i => i);
-        }
-
+        
         /// <summary>
         /// Returns the nth item in the array. Undefined behavior if the array is empty. 
         /// </summary>
@@ -205,7 +205,6 @@ namespace Ara3D
         {
             return self.ToFunction(false);
         }
-
         
         /// <summary>
         /// Adds all elements of the array to the target collection. 
@@ -287,11 +286,11 @@ namespace Ara3D
 
         /// <summary>
         /// Applies a function to each element in the list paired with the next one. 
-        /// Used to implement adjacnet differences for example.
+        /// Used to implement adjacent differences for example.
         /// </summary>
         public static IArray<U> ZipEachWithNext<T, U>(this IArray<T> self, Func<T, T, U> f)
         {
-            return self.DropLast().Zip(self.Skip(), f);
+            return self.Zip(self.Skip(), f);
         }
 
         /// <summary>
@@ -391,54 +390,77 @@ namespace Ara3D
             return self.Slice(from, count + from);
         }
 
+        /// <summary>
+        /// Returns elements of the array between from and skipping every stride element.  
+        /// </summary>
         public static IArray<T> Slice<T>(this IArray<T> self, int from, int to, int stride)
         {
             return Select(to - from / stride, i => self[i * stride + from]);
         }
 
-        public static IArray<T> Stride<T>(this IArray<T> self, int stride)
+        /// <summary>
+        /// Returns a new array containing the elements by taking every nth item.  
+        /// </summary>
+        public static IArray<T> Stride<T>(this IArray<T> self, int n)
         {
-            return Select(self.Count / stride, i => self[i * stride % self.Count]);
+            return Select(self.Count / n, i => self[i * n % self.Count]);
         }
 
+        /// <summary>
+        /// Returns a new array containing just the first n items.  
+        /// </summary>
         public static IArray<T> Take<T>(this IArray<T> self, int n)
         {
             return self.Slice(0, n);
         }
 
+        /// <summary>
+        /// Returns a new array containing the elements after the first n elements.  
+        /// </summary>
         public static IArray<T> Skip<T>(this IArray<T> self, int n = 1)
         {
             return self.Slice(n, self.Count);
         }
 
+        /// <summary>
+        /// Returns a new array containing the last n elements.  
+        /// </summary>
         public static IArray<T> TakeLast<T>(this IArray<T> self, int n = 1)
         {
             return self.Skip(self.Count - n);
         }
 
+        /// <summary>
+        /// Returns a new array containing all elements excluding the last n elements.  
+        /// </summary>
         public static IArray<T> DropLast<T>(this IArray<T> self, int n = 1)
         {
             return self.Take(self.Count - n);
         }
-
-        // Remapping of indices 
-
+        
+        /// <summary>
+        /// Returns a new array by remapping indices 
+        /// </summary>
         public static IArray<T> MapIndices<T>(this IArray<T> self, Func<int, int> f)
         {
-            return self.Select((x, i) => self[f(i)]);
+            return self.Count.Select(i => self[f(i)]);
         }
 
+        /// <summary>
+        /// Returns a new array that reverses the order of elements 
+        /// </summary>
         public static IArray<T> Reverse<T>(this IArray<T> self)
         {
             return self.MapIndices(i => self.Count - 1 - i);
         }
 
+        /// <summary>
+        /// Uses the new array to access elements of the first array.
+        /// </summary>
         public static IArray<T> SelectByIndex<T>(this IArray<T> self, IArray<int> indices)
         {
             return indices.Select(i => self[i]);
         }
-
-        // Resizing, if bigger than the original uses a modulo operation 
 
         /// <summary>
         /// Similiar to take, if count is less than the number of items in the array, otherwise 
@@ -492,7 +514,18 @@ namespace Ara3D
             return -1;
         }
 
-        // TODO: CountWhere, and IndexOf with predicate, Stats, Min, and Max, Apply Edits (change values ... based on)
+        /// <summary>
+        /// Returns the index of the last element matching the given item.
+        /// </summary>
+        public static int LastIndexOf<T>(this IArray<T> self, T item) where T : IEquatable<T>
+        {
+            int n = self.Reverse().IndexOf(item);
+            return n < 0 ? n : self.Count - 1 - n;
+        }
+
+        /// <summary>
+        /// Returns an array that is one element shorter that subtracts each element from its previous one. 
+        /// </summary>
         public static IArray<int> AdjacentDifferences(this IArray<int> self)
         {
             return self.ZipEachWithNext((a, b) => b - a);
@@ -503,7 +536,7 @@ namespace Ara3D
         /// </summary>
         public static IArray<T> Append<T>(this IArray<T> self, T x)
         {
-            return self.Concatenate(x.Unit());
+            return self.Concatenate(x.Repeat(1));
         }
 
         /// <summary>
@@ -511,7 +544,7 @@ namespace Ara3D
         /// </summary>
         public static IArray<T> Prepend<T>(this IArray<T> self, T x)
         {
-            return x.Unit().Concatenate(self);
+            return x.Repeat(1).Concatenate(self);
         }
     }
 }
