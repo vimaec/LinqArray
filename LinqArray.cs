@@ -546,5 +546,22 @@ namespace Ara3D
         {
             return x.Repeat(1).Concatenate(self);
         }
+
+
+        /// <summary>
+        /// Returns the element at the nth position, where n is modulo the number of items in the arrays.
+        /// </summary>
+        public static T ElementAt<T>(this IArray<T> self, int n)
+        {
+            return self[n];
+        }
+
+        /// <summary>
+        /// Returns the element at the nth position, where n is modulo the number of items in the arrays.
+        /// </summary>
+        public static T ElementAtModulo<T>(this IArray<T> self, int n)
+        {
+            return self.ElementAt(n % self.Count);
+        }
     }
 }
