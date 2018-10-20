@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>linq_array</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/ara3d/LinqArray</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ara3d/LinqArray</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/ara3d/LinqArray/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Copyright>Copyright 2018, Ara 3D. Inc, MIT License</Copyright>
+    <Description>LinqArray is a pure functional .NET Standard library that provides LINQ functionality for immutable arrays, rather than streams, while preserving O(1) complexity when retrieving the count or items by index. It is performant, memory efficient, cross-platform, safe, and easy to use.</Description>
+    <Authors>Ara 3D</Authors>
+    <Company>Ara 3D</Company>
+    <Product>LinqArray</Product>
   </PropertyGroup>
 
 </Project>

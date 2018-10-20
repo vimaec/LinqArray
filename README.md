@@ -1,8 +1,6 @@
 # LinqArray
 
-*LinqArray* is a .NET library that provides LINQ functionality for immutable arrays, rather than streams, while preserving `O(1)` complexity when retrieving the count or items by index. 
-
-It is performant, memory efficient, safe, and easy to use. While it is a general purpose library, it is being used in the development of high performance geometric processing algorithms.
+*LinqArray* is a pure functional .NET Standard 2.0 library that provides LINQ functionality for immutable arrays, rather than streams, while preserving `O(1)` complexity when retrieving the count or items by index. It is performant, memory efficient, cross-platform, safe, and easy to use.
 
 ## Overview 
 
@@ -39,4 +37,4 @@ The project is under heavy development but the core functionality is fixed.
 
 This library is based on an article on CodeProject.com called [LINQ for Immutable Arrays](https://www.codeproject.com/Articles/517728/LINQ-for-Immutable-Arrays).
 
-Unlike [LinqFaster](https://github.com/jackmott/LinqFaster) by Jack Mott evaluations of functions happen lazily.
+Unlike [LinqFaster](https://github.com/jackmott/LinqFaster) by Jack Mott evaluations of functions happen lazily, and have no side effects. This means that this library can be easily used in a multi-threaded context without inccurring the overhead and complexity of  synchronization. 
