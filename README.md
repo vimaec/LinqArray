@@ -1,6 +1,6 @@
 # LinqArray
 
-*LinqArray* is a pure functional .NET Standard 2.0 library that provides LINQ functionality for immutable arrays, rather than streams, while preserving `O(1)` complexity when retrieving the count or items by index. It is performant, memory efficient, cross-platform, safe, and easy to use.
+*LinqArray* is a pure functional .NET Standard 2.0 library from **[Ara 3D](https://ara3d.com)** that provides LINQ functionality for immutable arrays, rather than streams, while preserving `O(1)` complexity when retrieving the count or items by index. It is performant, memory efficient, cross-platform, safe, and easy to use.
 
 ## Overview 
 
