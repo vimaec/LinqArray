@@ -38,7 +38,7 @@ namespace Ara3D
         public int Count { get; }
         public T this[int n] { get { return Function(n); } }
         public FunctionalArray(int count, Func<int, T> function) { Count = count; Function = function; }
-    }
+    }    
 
     /// <summary>
     /// Extension functions for working on any object implementing IArray.
@@ -258,6 +258,15 @@ namespace Ara3D
             foreach (var xs in self.ToEnumerable())
                 foreach (var x in xs.ToEnumerable())
                     yield return x;
+        }
+
+        /// <summary>
+        /// Converts an array with a function that maps each element to an arrays to a flat enumerable.
+        /// Almost the same as flatten (or FlatMap) but the result is an enumerable. 
+        /// </summary>
+        public static IEnumerable<U> SelectMany<T, U>(this IArray<T> self, Func<T, IArray<U>> f)
+        {
+            return self.Select(f).SelectMany();
         }
 
         /// <summary>
@@ -562,6 +571,30 @@ namespace Ara3D
         public static T ElementAtModulo<T>(this IArray<T> self, int n)
         {
             return self.ElementAt(n % self.Count);
+        }
+
+        /// <summary>
+        /// Counts all elements in an array that satisfy a predicate
+        /// </summary>
+        public static int CountWhere<T>(this IArray<T> self, Func<T, bool> p)
+        {
+            return self.Aggregate(0, (n, x) => n += p(x) ? 1 : 0);
+        }
+
+        /// <summary>
+        /// Counts all elements in an array that are equal to true
+        /// </summary>
+        public static int CountWhere(this IArray<bool> self)
+        {
+            return self.CountWhere(x => x);
+        }
+
+        /// <summary>
+        /// Counts all elements in an array that are equal to a value
+        /// </summary>
+        public static int CountWhere<T>(this IArray<T> self, T val) where T : IEquatable<T>
+        {
+            return self.CountWhere(x => x.Equals(val));
         }
     }
 }
