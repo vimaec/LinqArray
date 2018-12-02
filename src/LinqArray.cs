@@ -623,5 +623,21 @@ namespace Ara3D
             if (self.Count == 0) throw new ArgumentOutOfRangeException();
             return self.Aggregate(self[0], (a, b) => a.CompareTo(b) > 0 ? a : b);
         }
+        
+        /// <summary>
+        /// Applies a function (like "+") to each element in the series to create an effect similar to partial sums.
+        /// </summary>
+        public static T[] Accumulate<T>(this IArray<T> self, Func<T, T, T> f)
+        {
+            var n = self.Count;
+            var r = new T[n];
+            if (n == 0) return r;
+            var prev = r[0] = self[0];
+            for (var i = 1; i < n; ++i)
+            {
+                prev = r[i] = f(prev, self[i]);
+            }
+            return r;
+        }
     }
 }
