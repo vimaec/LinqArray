@@ -20,4 +20,16 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="LinqArray.Tests\**" />
+    <Compile Remove="LinqArray.XUnit.Tests\**" />
+    <Compile Remove="LinqArrayTests\**" />
+    <EmbeddedResource Remove="LinqArray.Tests\**" />
+    <EmbeddedResource Remove="LinqArray.XUnit.Tests\**" />
+    <EmbeddedResource Remove="LinqArrayTests\**" />
+    <None Remove="LinqArray.Tests\**" />
+    <None Remove="LinqArray.XUnit.Tests\**" />
+    <None Remove="LinqArrayTests\**" />
+  </ItemGroup>
+
 </Project>

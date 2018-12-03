@@ -46,7 +46,7 @@ on any conforming type. The closest thing to an array
 
 ## Extension Methods 
 
-LinqArray provides many of the same extension methods for `IArray` as LINQ does for objects implementing the `IEnumerable` interface. Some examples include: 
+LinqArray provides many of the same extension methods for `IReadOnlyList` as LINQ does for objects implementing the `IEnumerable` interface. Some examples include: 
 
 * `Aggregate`
 * `Select`
