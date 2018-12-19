@@ -1,12 +1,8 @@
 # LinqArray
 
-**LinqArray** is a pure functional .NET Standard 2.0 library from **[Ara 3D](https://ara3d.com)** that provides LINQ functionality for 
+**LinqArray** is a pure functional .NET library from **[Ara 3D](https://ara3d.com)** that provides LINQ functionality for 
 immutable (read only) arrays, rather than streams, while preserving `O(1)` complexity when retrieving the count or items by index. 
 It is performant, memory efficient, cross-platform, safe, and easy to use.
-
-### Note about .NET Standard
-
-Class libraries written to target .NET Standard can be used in projects that target .NET Core or .NET Framework (or of course .NET Standard). 
 
 ## Overview 
 
