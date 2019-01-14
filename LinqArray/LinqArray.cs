@@ -703,5 +703,32 @@ namespace Ara3D
         {
             return self.ToEnumerable().Any(predicate);
         }
+
+        /// <summary>
+        /// Sums items in an array using a selector function that returns integers. 
+        /// </summary>
+        public static long Sum<T>(this IArray<T> self, Func<T, long> func)
+        {
+            return self.Aggregate(0L, (init, x) => init + func(x));
+        }
+
+        /// <summary>
+        /// Sums items in an array using a selector function that returns doubles. 
+        /// </summary>
+        public static double Sum<T>(this IArray<T> self, Func<T, double> func)
+        {
+            return self.Aggregate(0.0, (init, x) => init + func(x));
+        }
+
+        /// <summary>
+        /// Forces evaluation (aka Reification) of the array by creating a copy in memory.
+        /// This is useful as a performance optimization, or in some cases when referencing temporary memory. 
+        /// </summary>
+        /// <returns></returns>
+        public static IArray<T> Evaluate<T>(this IArray<T> x)
+        {
+            // TODO: add a type check here. If already evaluated, this could be a huge savings!
+            return x.ToArray().ToIArray();
+        }
     }
 }
