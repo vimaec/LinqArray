@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 
-namespace Vim
+namespace Vim.LinqArray.Tests
 {
-    [TestFixture]
-    public class UnitTest1
+    public class LinqArrayTestss
     {
         public static int[] ArrayToTen = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public static IArray<int> RangeToTen = 10.Range();
@@ -39,7 +37,7 @@ namespace Vim
             {
                 sum += x;
             }
-            foreach (var x in tens.ToEnumerable()) 
+            foreach (var x in tens.ToEnumerable())
             {
                 Console.WriteLine(x.ToString());
             }
@@ -52,6 +50,15 @@ namespace Vim
             Assert.AreEqual(0, tens.Reverse().Reverse().First());
             var split = tens.Split(LinqArray.Create(3, 6));
             Assert.AreEqual(3, split.Count);
+
+            var batch = tens.SubArrays(3);
+            Assert.AreEqual(4, batch.Count);
+            Assert.True(batch[0].SequenceEquals(LinqArray.Create(0, 1, 2)));
+            Assert.True(batch[3].SequenceEquals(LinqArray.Create(9)));
+
+            var batch2 = tens.Take(9).SubArrays(3);
+            Assert.AreEqual(3, batch2.Count);
+
             var counts = split.Select(x => x.Count);
             Assert.True(counts.SequenceEquals(LinqArray.Create(3, 3, 4)));
             var indices2 = counts.Accumulate((x, y) => x + y);

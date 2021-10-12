@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vim.LinqArrayTests", "LinqArrayTests\Vim.LinqArrayTests.csproj", "{B83D1FBE-6708-41EB-A028-D604CB44A5C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vim.LinqArray.Tests", "LinqArray.Tests\Vim.LinqArray.Tests.csproj", "{B83D1FBE-6708-41EB-A028-D604CB44A5C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vim.LinqArray", "LinqArray\Vim.LinqArray.csproj", "{A2518E5F-3C3D-4ADD-9EA8-B0162E333DF7}"
 EndProject
