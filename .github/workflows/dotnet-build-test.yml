@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, vadim/action-test ]
   pull_request:
     branches: [ master ]
 
@@ -12,21 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+    - name: Actions checkout
+      uses: actions/checkout@v2   
+    - uses: ./.github/actions/test
       with:
-        dotnet-version: 5.0.x
-
-    - name: Install additional tools
-      run: sudo apt install nuget
-    - name: Check version
-      run: .github/scripts/check-nuget-version.sh LinqArray/Vim.LinqArray.csproj Vim.LinqArray
-      shell: bash
-
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build -c Release --no-restore
-    - name: Test
-      run: dotnet test -c Release --no-build --verbosity normal
+        project_path: LinqArray/Vim.LinqArray.csproj
+        package_name: Vim.LinqArray
