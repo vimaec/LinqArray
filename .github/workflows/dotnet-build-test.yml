@@ -17,7 +17,7 @@ jobs:
         repository: vimaec/ci-cd-scripts
         ref: refs/heads/main
         path: ./actions/build-and-test
-    - run: ls
+    - run: ls -a actions/build-and-test
       shell: bash
     - uses: ./actions/build-and-test
       with:
