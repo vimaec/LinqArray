@@ -17,6 +17,8 @@ jobs:
         repository: vimaec/ci-cd-scripts
         ref: refs/heads/main
         path: ./actions/build-and-test
+    - run: ls
+      shell: bash
     - uses: ./actions/build-and-test
       with:
         project_path: LinqArray/Vim.LinqArray.csproj
