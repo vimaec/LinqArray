@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: vimaec/ci-cd-scripts/actions/build-and-test
+    - uses: vimaec/ci-cd-scripts@actions/build-and-test
       with:
         project_path: LinqArray/Vim.LinqArray.csproj
         package_name: Vim.LinqArray
