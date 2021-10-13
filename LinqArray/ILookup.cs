@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Vim
+namespace Vim.LinqArray
 {
     /// <summary>
     /// Lookup table: mapping from a key to some value.
@@ -30,18 +30,20 @@ namespace Vim
     public class LookupFromDictionary<TKey, TValue> : ILookup<TKey, TValue>
     {
         public IDictionary<TKey, TValue> Dictionary;
+        private TValue _default;
 
-        public LookupFromDictionary(IDictionary<TKey, TValue> d = null)
+        public LookupFromDictionary(IDictionary<TKey, TValue> d = null, TValue defaultValue = default)
         {
             Dictionary = d ?? new Dictionary<TKey, TValue>();
             // TODO: sort?
+            _default = defaultValue;
             Keys = d.Keys.ToIArray();
             Values = d.Values.ToIArray();
         }
 
         public IArray<TKey> Keys { get; }
         public IArray<TValue> Values { get; }
-        public TValue this[TKey key] => Contains(key) ? Dictionary[key] : default;
+        public TValue this[TKey key] => Contains(key) ? Dictionary[key] : _default;
         public bool Contains(TKey key) => Dictionary.ContainsKey(key);
     }
 
@@ -64,8 +66,8 @@ namespace Vim
 
     public static class LookupExtensions
     {
-        public static ILookup<TKey, TValue> ToLookup<TKey, TValue>(this IDictionary<TKey, TValue> d)
-            => new LookupFromDictionary<TKey,TValue>(d);
+        public static ILookup<TKey, TValue> ToLookup<TKey, TValue>(this IDictionary<TKey, TValue> d, TValue defaultValue = default)
+            => new LookupFromDictionary<TKey, TValue>(d, defaultValue);
 
         public static TValue GetOrDefault<TKey, TValue>(this ILookup<TKey, TValue> lookup, TKey key)
             => lookup.Contains(key) ? lookup[key] : default;
