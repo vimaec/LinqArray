@@ -13,7 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: vimaec/ci-cd-scripts@main
+      with:
+        repository: vimaec/ci-cd-scripts
+        ref: refs/heads/main
+        path: ./actions/build-and-test
+    - uses: ./actions/build-and-test
       with:
         project_path: LinqArray/Vim.LinqArray.csproj
         package_name: Vim.LinqArray
