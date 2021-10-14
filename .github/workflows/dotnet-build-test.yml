@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       with:
         repository: vimaec/ci-cd-scripts
         ref: refs/heads/vadim/test
