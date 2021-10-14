@@ -21,3 +21,4 @@ jobs:
       with:
         project_path: LinqArray/Vim.LinqArray.csproj
         package_name: Vim.LinqArray
+        root_path: ".github"
