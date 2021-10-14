@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master, vadim/action-test ]
+    branches: [ master ] #, vadim/action-test ]
   pull_request:
     branches: [ master ]
 
