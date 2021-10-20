@@ -23,5 +23,6 @@ jobs:
     - uses: ./.github/actions/build-and-test
       with:
         project_path: LinqArray/Vim.LinqArray.csproj
+        test_project_path: LinqArray.Tests/Vim.LinqArray.Tests.csproj
         package_name: Vim.LinqArray
         root_path: ".github"
