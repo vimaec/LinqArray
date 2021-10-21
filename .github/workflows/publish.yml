@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: vimaec/ci-cd-scripts
-        ref: refs/heads/vadim/test
+        ref: refs/heads/vadim/test-3
         path: .github/
     - uses: ./.github/actions/publish-nuget
       with:
