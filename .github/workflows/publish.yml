@@ -22,5 +22,5 @@ jobs:
         project_path: LinqArray/Vim.LinqArray.csproj
         test_project_path: LinqArray.Tests/Vim.LinqArray.Tests.csproj
         package_name: Vim.LinqArray
-        api_key: ${{secrets.NUGET_KEY}}
+        api_key: ${{secrets.VIM_NUGET_PUSH}}
         root_path: ".github"
