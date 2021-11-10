@@ -781,7 +781,7 @@ namespace Vim.LinqArray
         /// Returns true if the two lists are the same length, and the elements are the same.
         /// </summary>
         public static bool SequenceEquals<T>(this IArray<T> self, IArray<T> other) where T : IEquatable<T>
-            => self == other || (self.Count == other.Count && self.Zip(other, (x, y) => x.Equals(y)).All(x => x));
+            => self == other || (self.Count == other.Count && self.Zip(other, (x, y) => x?.Equals(y) ?? y == null).All(x => x));
 
         /// <summary>
         /// Creates a readonly array from a seed value, by applying a function
