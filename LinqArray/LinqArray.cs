@@ -20,12 +20,20 @@ namespace Vim.LinqArray
 {
     /// <summary>
     /// Represents an immutable array with expected O(1) complexity when
+    /// retrieving the number of items.
+    /// </summary>
+    public interface IArray
+    {
+        int Count { get; }
+    }
+
+    /// <summary>
+    /// Represents an immutable array with expected O(1) complexity when
     /// retrieving the number of items and random element access.
     /// </summary>
-    public interface IArray<T>
+    public interface IArray<T> : IArray
     {
         T this[int n] { get; }
-        int Count { get; }
     }
 
     /// <summary>
