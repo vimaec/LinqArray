@@ -350,7 +350,7 @@ namespace Vim.LinqArray
                 r[i * 4] = tmp.Item1;
                 r[i * 4 + 1] = tmp.Item2;
                 r[i * 4 + 2] = tmp.Item3;
-                r[i * 4 + 3] = tmp.Item3;
+                r[i * 4 + 3] = tmp.Item4;
             }
             return r.ToIArray();
         }
