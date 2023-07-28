@@ -1,3 +1,5 @@
+**This repository has been archived; the code is now being maintained within the [vim-format](https://github.com/vimaec/vim-format) repository.**
+
 # LinqArray
 
 **LinqArray** is a pure functional .NET library from **[Ara 3D](https://ara3d.com)** that provides LINQ functionality for 
